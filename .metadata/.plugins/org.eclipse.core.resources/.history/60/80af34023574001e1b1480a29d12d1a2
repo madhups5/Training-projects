@@ -1,0 +1,9 @@
+package com.npci.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.npci.beans.Contact;
+
+public interface WalletDao extends JpaRepository<Contact,Integer> {
+
+}

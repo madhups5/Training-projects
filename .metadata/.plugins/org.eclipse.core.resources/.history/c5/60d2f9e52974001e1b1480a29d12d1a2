@@ -1,0 +1,63 @@
+package com.npci.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.beans.Wallet;
+import com.npci.dao.ContactDao; 
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.ContactNotFoundException;
+import com.npci.exceptions.ProfileNotFoundException;
+
+public class LoginImpl implements Login {
+	@Autowired
+	private ProfileDao profiledao;
+	
+	@Autowired
+	private ContactDao contactdao;
+
+	private List<Contact> contacts;
+	
+	private List<Profile> profiles;
+
+	@Override
+	public Profile addContacts(Profile profile_id_ref,Wallet wallet_id_ref) {
+		Contact contact=new Contact();
+		contact.setProfile_id_ref(profile_id_ref);
+		contact.setWallet_id_ref(wallet_id_ref);
+		return contactdao.save(contact);
+	}
+
+	@Override
+	public List<Profile> viewAllContacts() {
+		return contactdao.findAll();
+	}
+
+	@Override
+	public Contact deleteContact(int id) throws ProfileNotFoundException {
+		if(contacts.contactdao.findById(id))
+		{
+			
+		}
+		throw new ContactNotFoundException("Contact with this id Not Found");
+	}
+
+	@Override
+	public Profile deleteMyProfile(int id) throws ProfileNotFoundException {
+		if(profiles.get(id)==id)
+		{
+			profiles.remove(id);
+		}
+		throw new ProfileNotFoundException("Profile Id "+id+ "Not Found");
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

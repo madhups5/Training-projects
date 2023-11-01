@@ -1,0 +1,13 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+
+import com.npci.beans.Profile;
+
+public interface profileService {
+	
+	void Register(String email_id, String name, String password, LocalDate dob, long phno);
+
+	Profile Login(String emailId, String password);
+
+}

@@ -1,0 +1,81 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.npci.beans.Account;
+import com.npci.beans.Profile;
+import com.npci.beans.Wallet;
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.InvalidDetailsException;
+import com.npci.exceptions.ProfileNotFoundException;
+import com.npci.validations.Validations;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class profileServiceImpl implements profileService {
+	@Autowired
+	private ProfileDao profiledao;
+	
+	@Override
+	@Transactional
+	public Profile createProfile(Profile profile)
+	{
+		Wallet wallet=new Wallet();
+		wallet.setAmount(5000);
+		Account account=new Account();
+		account.setAmount(10000);
+		profile.setWallet_id_ref(wallet);
+		return profiledao.save(profile);
+		
+	}
+
+	@Override
+	public Profile Register(String email_id, String name, String password, LocalDate dob, long phno) throws InvalidDetailsException {
+		Scanner scanner = new Scanner(System.in);
+		// Prompt the user for registration details
+		
+		System.out.print("Enter your email: ");
+		String emailId = scanner.nextLine();
+		
+		System.out.print("Enter your name: ");
+		String yourName = scanner.nextLine();
+
+		System.out.print("Enter your password: ");
+		String pswrd = scanner.nextLine();
+
+		System.out.print("Enter your date of birth (MM/DD/YYYY): ");
+		String Dob = scanner.nextLine();
+		LocalDate dateOfBirth = LocalDate.parse(Dob);
+
+		System.out.print("Enter your phone number: ");
+		String phoneNumber = scanner.nextLine();
+		long phoneno = Long.parseLong(phoneNumber);
+		
+		
+		// Validate the inputs
+		if (Validations.isValidEmail(emailId)&&Validations.validateName(yourName)
+				&& Validations.validatePassword(pswrd) && Validations.isDateValid(dateOfBirth)
+				&& Validations.validatePhone(phoneno)) {
+			Profile profile = new Profile(0, emailId, yourName,pswrd,dateOfBirth,phoneno);
+			profiledao.save(profile);
+			return profile;
+		}
+		throw new InvalidDetailsException("Enter Details Correctly");
+	
+	}
+
+
+	@Override
+	public Profile Login(String emailId, String password) throws ProfileNotFoundException {
+//		if (Validations.isValidEmail(emailId) && Validations.validatePassword(password)) {
+//			return profiledao.findAll();
+//		}
+//		throw new ProfileNotFoundException("Profile With this Deatils Not Exists");
+//	}
+		Profile profile=profiledao
+}

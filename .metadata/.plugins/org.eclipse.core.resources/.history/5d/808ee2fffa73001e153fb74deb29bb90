@@ -1,0 +1,46 @@
+package com.npci.service;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.UserNotFoundException;
+
+public class LoginImpl implements Login {
+	@Autowired
+	private ProfileDao profiledao;
+
+	private List<Contact> contacts;
+
+	@Override
+	public Contact addContacts(String name, long phno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Contact> viewAllContacts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Contact deleteContact(int id) throws UserNotFoundException {
+		
+		return null;
+	}
+
+	@Override
+	public Profile deleteMyProfile(int id) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

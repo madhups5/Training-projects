@@ -1,0 +1,7 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+
+public interface Register {
+void registerUser(String email_id,String name,String password, LocalDate dob, long phno);
+}

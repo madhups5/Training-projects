@@ -1,0 +1,9 @@
+package com.npci.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.npci.beans.Profile;
+
+public interface ContactDao extends JpaRepository<Profile,String> {
+
+}

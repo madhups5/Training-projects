@@ -1,0 +1,78 @@
+package com.npci.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.dao.UserDao;
+import com.npci.exceptions.UserNotFoundException;
+import com.npci.validations.Validations;
+
+public class LoginImpl implements Login {
+	private List<Profile> users;
+	@Autowired
+	private UserDao userdao;
+	
+	public String Login(String email,String password)
+	{
+		if(userdao.findById(email) != null)
+		{
+			return "Login Successful";
+		}
+		return "Invalid EmailId and Password";
+	}
+
+	@Override
+	public Profile editUser(Profile user) {
+		return null;
+	}
+
+	@Override
+	public Contact addContacts(int id) {
+		contacts.add(contact);
+		return contact;
+	}
+
+	@Override
+	public String viewAllContacts() {
+		if (contacts != null) {
+			for (Contact c : contacts) {
+				System.out.println("List of Contacts" + c);
+			}
+		}
+		return "Contact List is Empty";
+
+	}
+
+	@Override
+	public void editContacts() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Contact deleteContact(int id) throws UserNotFoundException {
+		if (contact.getContactId() == id) {
+			contacts.remove(contact);
+		}
+		throw new UserNotFoundException("Enter Valid Id to delete Contact");
+
+	}
+
+	@Override
+	public Profile deleteMyProfile(int id) throws UserNotFoundException {
+		if (user.getUserId() == id) {
+			users.remove(id);
+		}
+		throw new UserNotFoundException("User With the Id Doesn't Exists");
+	}
+
+	@Override
+	public void logout() {
+		user = null;
+
+	}
+
+}

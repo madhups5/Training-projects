@@ -1,0 +1,47 @@
+package com.npci.beans;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+public class Contact {
+	//primary key
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int contactId;
+	//foreignkey
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="wallet_id_ref")
+	private  Wallet wallet_id_ref;
+	//foreignKey
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="user_emailid_ref")
+	private Profile user_emailid_ref;
+	//generate 2 constuctors
+	public Contact(int contactId) { 
+		super();
+		this.contactId = contactId;	
+	}
+	public Contact() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public int getContactId() {
+		return contactId;
+	}
+	public void setContactId(int contactId) {
+		this.contactId = contactId;
+	}
+
+	public void setWallet_id_ref(Wallet wallet_id_ref) {
+		this.wallet_id_ref = wallet_id_ref;
+	}
+	public void setUser_id_ref(Profile user_emailid_ref) {
+		this.user_emailid_ref = user_emailid_ref;
+	}
+		
+}

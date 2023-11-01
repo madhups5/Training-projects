@@ -1,0 +1,29 @@
+package com.npci.service;
+
+import java.util.List;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.exceptions.UserNotFoundException;
+
+public interface Login {
+	Profile Login(String email, String password);
+
+	void walletTransactions();
+
+	void editProfile(String newName, String newEmail, String newPassword, LocalDate newDob, long newPhone);
+
+	Contact addContacts(String name, long phno);
+
+	List<Contact> viewAllContacts();
+
+	void editContacts();
+
+	Contact deleteContact(int id) throws UserNotFoundException;
+
+	Profile deleteMyProfile(int id) throws UserNotFoundException;
+
+	void logout();
+
+
+}

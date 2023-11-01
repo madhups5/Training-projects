@@ -1,0 +1,61 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.npci.beans.Profile;
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.InvalidDetailsException;
+import com.npci.exceptions.ProfileNotFoundException;
+import com.npci.validations.Validations;
+
+@Service
+public class profileServiceImpl implements profileService {
+	@Autowired
+	private ProfileDao profiledao;
+
+	@Override
+	public Profile Register(String email_id, String name, String password, LocalDate dob, long phno) throws InvalidDetailsException {
+		Scanner scanner = new Scanner(System.in);
+		Profile profile = new Profile(0, email_id, name, password, dob, phno);
+		// Prompt the user for registration details
+		System.out.print("Enter your name: ");
+		String yourName = scanner.nextLine();
+
+		System.out.print("Enter your email: ");
+		String emailId = scanner.nextLine();
+
+		System.out.print("Enter your password: ");
+		String pswrd = scanner.nextLine();
+
+		System.out.print("Enter your date of birth (MM/DD/YYYY): ");
+		String Dob = scanner.nextLine();
+		LocalDate dateOfBirth = LocalDate.parse(Dob);
+
+		System.out.print("Enter your phone number: ");
+		String phoneNumber = scanner.nextLine();
+		long phoneno = Long.parseLong(phoneNumber);
+
+		// Validate the inputs
+		if (Validations.validateName(yourName) && Validations.isValidEmail(emailId)
+				&& Validations.validatePassword(pswrd) && Validations.isDateValid(dateOfBirth)
+				&& Validations.validatePhone(phoneno)) {
+			profiledao.save(profile);
+			return profile;
+		}
+		throw new InvalidDetailsException("Enter Details Correctly");
+	}
+
+
+	@Override
+	public List<Profile> Login(String emailId, String password) throws ProfileNotFoundException {
+		if (Validations.isValidEmail(emailId) && Validations.validatePassword(password)) {
+			return profiledao.findAll();
+		}
+		throw new ProfileNotFoundException("Profile With this EmailId and Password Not Exists");
+	}
+}

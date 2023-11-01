@@ -1,0 +1,18 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.exceptions.UserNotFoundException;
+
+public interface Login {
+ String viewAllContacts();
+ void editContacts();
+ void logout();
+Contact deleteContact(int id) throws UserNotFoundException;
+Profile editUser(Profile user);
+Profile deleteMyProfile(int id) throws UserNotFoundException;
+Contact addContacts(String name, long phno);
+}

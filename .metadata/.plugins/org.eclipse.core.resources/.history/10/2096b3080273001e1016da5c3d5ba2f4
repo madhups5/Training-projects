@@ -1,0 +1,90 @@
+package com.npci.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.UserNotFoundException;
+import com.npci.validations.Validations;
+
+public class LoginImpl implements Login {
+	private List<Profile> profiles;
+	@Autowired
+	private ProfileDao profiledao;
+
+	@Override
+	public void walletTransactions() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editProfile(String newName,String newEmail,String newPassword,LocalDate newDob,long newPhone) {
+		Profile profile = new Profile(0,newName, newEmail, newPassword, newDob, 0, newPhone);
+		if(Validations.validateName(newName))
+		{
+			profile.setName(newName);
+		}
+		if(Validations.isValidEmail(newEmail))
+		{
+			profile.setEmailId(newEmail);
+		}
+		if(Validations.validatePassword(newPassword))
+		{
+			profile.setPassword(newPassword);
+		}
+		if(Validations.isDateValid(newDob))
+		{
+			profile.setDob(newDob);
+		}
+		if(Validations.validatePhone(newPhone))
+		{
+			profile.setPhone(newPhone);
+		}
+		
+		
+		
+		
+	}
+
+	@Override
+	public Contact addContacts(String name, long phno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Contact> viewAllContacts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void editContacts() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Contact deleteContact(int id) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Profile deleteMyProfile(int id) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

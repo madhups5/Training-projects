@@ -1,0 +1,71 @@
+package com.npci.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.beans.Wallet;
+import com.npci.dao.ContactDao;
+import com.npci.dao.ProfileDao;
+import com.npci.exceptions.ContactNotFoundException;
+import com.npci.exceptions.ProfileNotFoundException;
+
+public class LoginImpl implements Login {
+	@Autowired
+	private ProfileDao profiledao;
+	
+	@Autowired
+	private ContactDao contactdao;
+	
+	private List<Profile> profiles;
+	
+	private List<Contact> contacts;
+
+	@Override
+	public void addContacts(Profile profile_id_ref,Wallet wallet_id_ref) {
+		
+		Contact contact=new Contact();
+		contact.setProfile_id_ref(profile_id_ref);
+		contact.setWallet_id_ref(wallet_id_ref);
+		contacts.add(contact);
+		contactdao.save(contact);
+	}
+
+	@Override
+	public List<Contact> viewAllContacts() {
+		return (List<Contact>) contactdao.findAll();
+	}
+
+	@Override
+	public void deleteContact(int contactId) throws ContactNotFoundException {
+		
+		for(Contact contactIds :contacts)
+		{
+			if(contactIds.getContact_id()==contactId)
+			{
+			contacts.remove(contactId);
+			contactdao.save(contactIds);
+			}
+			
+		}
+		throw new ContactNotFoundException("Contact with this"+ contactId+" Not Found");
+	}
+
+	@Override
+	public Profile deleteMyProfile(int profile_id) throws ProfileNotFoundException {
+		if(profiledao.existsById(profile_id))
+		{
+		profiledao.deleteById(profile_id);
+		}
+		throw new ProfileNotFoundException("Profile with Id "+profile_id+ "Not Found");
+	}
+
+	@Override
+	public void logout() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

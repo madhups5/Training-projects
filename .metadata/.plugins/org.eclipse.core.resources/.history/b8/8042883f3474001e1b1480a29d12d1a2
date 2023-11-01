@@ -1,0 +1,10 @@
+package com.npci.service;
+
+import com.npci.beans.Contact;
+
+public interface WalletTransactions {
+ 
+	double addFunds(double amount);
+	double showBalance();
+	void transfer(double amount,Contact contact); 
+}

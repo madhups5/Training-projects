@@ -1,0 +1,95 @@
+package com.npci.beans;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name ="profile")
+public class Profile {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int profile_id;
+	private String name;
+	private String emailId;
+	private String password;
+	private LocalDate dob;
+	private long phone;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "wallet_id_ref")
+	private Wallet wallet_id_ref;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "contact", joinColumns = @JoinColumn(name = "profile_id_ref"), inverseJoinColumns = @JoinColumn(name = "wallet_id_ref)"))
+	private List<Contact> contacts;
+	public Profile(int profile_id, String name, String emailId, String password, LocalDate dob, long phone) {
+		super();
+		this.profile_id = profile_id;
+		this.name = name;
+		this.emailId = emailId;
+		this.password = password;
+		this.dob = dob;
+		this.phone = phone;
+	}
+	public int getProfile_id() {
+		return profile_id;
+	}
+	public void setProfile_id(int profile_id) {
+		this.profile_id = profile_id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public LocalDate getDob() {
+		return dob;
+	}
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+	public long getPhone() {
+		return phone;
+	}
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+	public void setWallet_id_ref(Wallet wallet_id_ref) {
+		this.wallet_id_ref = wallet_id_ref;
+	}
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+	@Override
+	public String toString() {
+		return "Profile [profile_id=" + profile_id + ", name=" + name + ", emailId=" + emailId + ", password="
+				+ password + ", dob=" + dob + ", phone=" + phone + ", wallet_id_ref=" + wallet_id_ref + ", contacts="
+				+ contacts + "]";
+	}
+
+	
+}

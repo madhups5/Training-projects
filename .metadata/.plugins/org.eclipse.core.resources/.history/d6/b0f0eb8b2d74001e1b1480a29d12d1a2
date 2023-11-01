@@ -1,0 +1,24 @@
+tf  package com.npci.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import com.npci.beans.Contact;
+import com.npci.beans.Profile;
+import com.npci.exceptions.ProfileNotFoundException;
+
+public interface Login {
+
+	Profile addContacts(int id);
+
+	List<Profile> viewAllContacts();
+
+	Contact deleteContact(int id) throws ProfileNotFoundException;
+
+	Profile deleteMyProfile(int id) throws ProfileNotFoundException;
+
+	void logout();
+
+
+
+}
